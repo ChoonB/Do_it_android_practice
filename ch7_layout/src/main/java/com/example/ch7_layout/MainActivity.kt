@@ -1,4 +1,4 @@
-package com.example.ch6_view
+package com.example.ch7_layout
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
