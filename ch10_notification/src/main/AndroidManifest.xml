@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,8 +13,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AndroidLab">
         <activity
+            android:name=".MainActivity2"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
-            android:permission="com.example.permission.TEST_PERMISSION"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.AndroidLab">
@@ -21,12 +27,5 @@
             </intent-filter>
         </activity>
     </application>
-
-    <permission android:name="com.example.permission.TEST_PERMISSION"
-        android:label="Test Permission"
-        android:description="설명"
-        android:protectionLevel="dangerous"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
 </manifest>
