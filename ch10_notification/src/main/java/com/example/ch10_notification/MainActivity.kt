@@ -105,5 +105,6 @@ class MainActivity : ComponentActivity() {
             ).addRemoteInput(remoteInput).build()
         )
         manager.notify(11, builder.build())
+        
     }
 }
