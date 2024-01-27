@@ -1,28 +1,61 @@
 package com.example.ch13_activity
 
+import android.content.Intent
 import android.os.Bundle
-import androidx.activity.ComponentActivity
+import android.os.PersistableBundle
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ch13_activity.databinding.ActivityMainBinding
 
-class MainActivity : ComponentActivity() {
+class MainActivity : AppCompatActivity() {
+
+    lateinit var binding: ActivityMainBinding
+    var datas: MutableList<String>? = null
+    lateinit var adapter: MyAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = ActivityMainBinding.inflate(layoutInflater)
+        binding= ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        //add................................
+
+        val requestLauncher: ActivityResultLauncher<Intent> = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()){
+            it.data!!.getStringExtra("result")?.let {
+                datas?.add(it)
+                adapter.notifyDataSetChanged()
+            }
+        }
+
+        binding.mainFab.setOnClickListener {
+            val intent = Intent(this, AddActivity::class.java)
+            requestLauncher.launch(intent)
+        }
+
+        datas = savedInstanceState?.let {
+            it.getStringArrayList("datas")?.toMutableList()
+        } ?: let {
+            mutableListOf<String>()
+        }
+
+        
+
+        val layoutManager = LinearLayoutManager(this)
+        binding.mainRecyclerView.layoutManager=layoutManager
+        adapter=MyAdapter(datas)
+        binding.mainRecyclerView.adapter=adapter
+        binding.mainRecyclerView.addItemDecoration(
+            DividerItemDecoration(this, LinearLayoutManager.VERTICAL)
+        )
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putString("data1", "hello")
-        outState.putInt("data2", 100)
+        outState.putStringArrayList("datas", ArrayList(datas))
     }
-
-    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        super.onRestoreInstanceState(savedInstanceState)
-        val data1 = savedInstanceState.getString("data1")
-        val data2 = savedInstanceState.getInt("data2")
-    }
-
-
+    
 }
