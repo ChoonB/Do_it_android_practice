@@ -6,6 +6,7 @@ plugins {
 android {
     namespace = "com.example.ch15_service"
     compileSdk = 34
+
     defaultConfig {
         applicationId = "com.example.ch15_service"
         minSdk = 24
@@ -38,6 +39,7 @@ android {
     buildFeatures {
         compose = true
         viewBinding = true
+        aidl = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.4.3"
@@ -50,9 +52,11 @@ android {
 }
 
 dependencies {
+    implementation ("com.google.android.material:material:1.11.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1")
-    
+
+
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
     implementation("androidx.activity:activity-compose:1.8.2")
