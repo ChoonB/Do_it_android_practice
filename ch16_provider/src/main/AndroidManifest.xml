@@ -10,10 +10,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AndroidLab">
         <provider
-            android:name=".MyContentProvider"
-            android:authorities="com.example.test_provider"
-            android:enabled="true"
-            android:exported="true"></provider>
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.example.ch16_provider.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths"></meta-data>
+        </provider>
 
         <activity
             android:name=".MainActivity"
